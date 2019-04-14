@@ -1,16 +1,12 @@
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_color.h>
-#include <iostream>
-#include <vector>
 #include "allegroAux.h"
-#include "Drawable.h"
 #include "Scene.h"
+#include "Worm.h"
+#include "AllegroEvents.h"
+#include "SimulationEvents.h"
+
+static void dispatch(eventype, Drawable**,Worm*,char key, SimulationEvents*);
 
 using namespace std;
-
-#define SCENARIO_FILE "Scenario.png"
 
 int main()
 {
@@ -18,35 +14,63 @@ int main()
 	ALLEGRO_SAMPLE* sickBeats = NULL;
 	ALLEGRO_TIMER* timer = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
-	ALLEGRO_EVENT ev;
-	bool quit = false;
-	const char* file = SCENARIO_FILE;
 
-	if (initAll(display, timer, event_queue, sickBeats))
+	if (initAll(display, timer, event_queue, sickBeats))	//Inicio los servicios de allegro
 	{
-		Drawable* drawables[3];
+		SimulationEvents ev2;
+		AllegroEvents ev(event_queue);
 		Scene background;
-		drawables[0] = &background;
+		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_POSITION_PLAYER_1,RIGHT),
+										 Worm(INICIAL_POSITION_PLAYER_2,LEFT),
+									   };
+		Drawable* drawables[OBJECTS_DRAWABLES] = { &background, &player[ONE], &player[TWO] };
 
-		background.init(SCENARIO_FILE);
-
-		al_clear_to_color(al_map_rgb(255,255,102));
-		drawAll(drawables, 1);
-		al_flip_display();
-
-		while (!quit)
+		if ( background.init(SCENARIO_FILE) && player[ONE].init(WORM_IMAGE) \
+			&& player[TWO].init(WORM_IMAGE) )		//Cargo los bitmaps del escenario y de cada worm
 		{
-			if (al_get_next_event(event_queue, &ev))
+			al_start_timer(timer);	//Comienza el contador
+
+			do
 			{
-				if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-					quit = true;
-			}
+				if (ev2.isThereEvent() && ev2.getEvent() == FULL_COUNTER)
+					ev2.setCounterToZero();
+				if (ev.isThereEvent())
+					dispatch(ev.getEvent(), drawables, player, ev.getKey(), &ev2);
+			} while (ev.notQuit());
+
+			for (int i = 0; i < OBJECTS_DRAWABLES; i++)
+				drawables[i]->deinit(); //Destruyo el bitmap de background, el bitmap del worm 1 y el bitmap del worm 2
 		}
-		background.deinit();
+		else
+			cerr << "Images load failure" << endl;	//Si no pude cargar el backgroung o algun worm muestro error
+
+		//delete[] player;	
 	}
 
-	deinitAll(display, timer, event_queue, sickBeats);
-
+	deinitAll(display, timer, event_queue, sickBeats);	//Destruyo todos los servicios de allegro
 
 	return 0;
+}
+
+
+static void dispatch(eventype ev, Drawable* drawables[OBJECTS_DRAWABLES],Worm *player,char key, SimulationEvents* ev2)
+{
+	switch (ev)
+	{
+		case USER_WANTS_TO_WALK:
+			for (int i = 0; i < CANT_OF_PLAYERS; i++)
+				player[i].walk(key, ev2->getCont());
+			break;
+		case USER_WANTS_TO_JUMP:
+			for (int i = 0; i < CANT_OF_PLAYERS; i++)
+				player[i].jump(key);
+			break;
+		case QUIT:
+			cout << "quiero salir" << endl;
+			break;
+		case REFRESH:
+			ev2->incrementCont();
+			drawAll(drawables, OBJECTS_DRAWABLES, W_DIS, H_DIS);
+			break;
+	}
 }

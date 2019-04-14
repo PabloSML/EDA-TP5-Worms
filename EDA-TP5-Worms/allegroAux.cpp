@@ -2,13 +2,6 @@
 #include "allegroAux.h"
 using namespace std;
 
-#define SUCCESS 1
-#define FAILURE 0
-#define FPS 50.0
-#define W_DIS 1920
-#define H_DIS 696
-#define OST_FILE "coda.wav"
-
 bool
 initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer, ALLEGRO_EVENT_QUEUE*& event_queue, ALLEGRO_SAMPLE*& sickBeats)
 {
