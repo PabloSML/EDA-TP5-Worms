@@ -32,7 +32,7 @@ public:
 
 	virtual void draw(float w_dis, float h_dis);
 	void walk(char key,int cont);
-	void jump(char key);
+	void jump();
 
 private:
 

@@ -4,7 +4,7 @@
 #include "AllegroEvents.h"
 #include "SimulationEvents.h"
 
-static void dispatch(eventype, Drawable**,Worm*,char key, SimulationEvents*);
+static void dispatch(Drawable**,Worm*,char key, SimulationEvents*, eventype);
 
 using namespace std;
 
@@ -35,7 +35,11 @@ int main()
 				if (ev2.isThereEvent() && ev2.getEvent() == FULL_COUNTER)
 					ev2.setCounterToZero();
 				if (ev.isThereEvent())
-					dispatch(ev.getEvent(), drawables, player, ev.getKey(), &ev2);
+				{
+					//eventype ev_ = ev.getEvent();
+					//char key_ = ev.getKey();
+					dispatch(drawables, player, ev.getKey(), &ev2, ev.getEvent());
+				}
 			} while (ev.notQuit());
 
 			for (int i = 0; i < OBJECTS_DRAWABLES; i++)
@@ -53,17 +57,25 @@ int main()
 }
 
 
-static void dispatch(eventype ev, Drawable* drawables[OBJECTS_DRAWABLES],Worm *player,char key, SimulationEvents* ev2)
+static void dispatch(Drawable* drawables[OBJECTS_DRAWABLES],Worm *player,char key, SimulationEvents* ev2, eventype ev)
 {
 	switch (ev)
 	{
-		case USER_WANTS_TO_WALK:
-			for (int i = 0; i < CANT_OF_PLAYERS; i++)
-				player[i].walk(key, ev2->getCont());
+		case PLAYER_1_WANTS_TO_WALK:
+			cout << "quiero caminar1"<< key << endl;
+			player[ONE].walk(key, ev2->getCont());
 			break;
-		case USER_WANTS_TO_JUMP:
-			for (int i = 0; i < CANT_OF_PLAYERS; i++)
-				player[i].jump(key);
+		case PLAYER_2_WANTS_TO_WALK:
+			cout << "quiero caminar2" << key << endl;
+			player[TWO].walk(key, ev2->getCont());
+			break;
+		case PLAYER_1_WANTS_TO_JUMP:
+			cout << "quiero saltar1" << key << endl;
+			player[ONE].jump();
+			break;
+		case PLAYER_2_WANTS_TO_JUMP:
+			cout << "quiero saltar2" << key << endl;
+			player[TWO].jump();
 			break;
 		case QUIT:
 			cout << "quiero salir" << endl;

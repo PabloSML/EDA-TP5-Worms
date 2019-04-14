@@ -1,5 +1,5 @@
 #include "AllegroEvents.h"
-
+#include <iostream>
 
 AllegroEvents::AllegroEvents(ALLEGRO_EVENT_QUEUE* event_queue_)
 {
@@ -12,6 +12,7 @@ AllegroEvents::getEvent(void)
 {
 	ALLEGRO_EVENT ev;
 	al_get_next_event(event_queue, &ev);
+	//al_flush_event_queue(event_queue);
 	eventype event = NO_EVENT;
 
 	if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
@@ -20,27 +21,27 @@ AllegroEvents::getEvent(void)
 		{
 		case ALLEGRO_KEY_A:
 			key = 'a';
-			event = USER_WANTS_TO_WALK;
+			event = PLAYER_1_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_LEFT:
 			key = '<';
-			event = USER_WANTS_TO_WALK;
+			event = PLAYER_2_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_D:
 			key = 'd';
-			event = USER_WANTS_TO_WALK;
+			event = PLAYER_1_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_RIGHT:
 			key = '>';
-			event = USER_WANTS_TO_WALK;
+			event = PLAYER_2_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_W:
 			key = 'w';
-			event = USER_WANTS_TO_JUMP;
+			event = PLAYER_1_WANTS_TO_JUMP;
 			break;
 		case ALLEGRO_KEY_UP:
 			key = '^';
-			event = USER_WANTS_TO_JUMP;
+			event = PLAYER_2_WANTS_TO_JUMP;
 			break;
 		case ALLEGRO_KEY_ESCAPE:
 			quit = true;
@@ -55,6 +56,9 @@ AllegroEvents::getEvent(void)
 	}
 	else if (ev.type == ALLEGRO_EVENT_TIMER)
 		event = REFRESH;
+
+	if (event != REFRESH)
+		cout << event << endl;
 
 	return event;
 }

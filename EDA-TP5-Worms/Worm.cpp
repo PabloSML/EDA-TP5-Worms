@@ -11,7 +11,7 @@ Worm::Worm(float x_, direction dir_)
 void
 Worm::draw(float w_dis, float h_dis)
 {
-	if ((look == RIGHT && old_look == LEFT) || (look == LEFT && old_look == RIGHT))
+	if (look != old_look)
 	{
 		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), \
 							  al_get_bitmap_height(image), pos_x - w_dis / 20, pos_y - h_dis / 20, \
@@ -46,7 +46,7 @@ Worm::walk(char key,int cont)
 }
 
 void
-Worm::jump(char key)
+Worm::jump()
 {
 
 }

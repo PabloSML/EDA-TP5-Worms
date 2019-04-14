@@ -22,7 +22,7 @@ Drawable::deinit()
 void
 drawAll(Drawable** drawables, int cant,float w_dis, float h_dis)
 {
-	for (int i = 0; i < cant; i++)
+	for (int i = 0 ; i < cant; i++)
 	{
 		drawables[i]->draw(w_dis,h_dis);
 	}
