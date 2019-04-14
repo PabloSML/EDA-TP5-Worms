@@ -4,30 +4,37 @@
 
 SimulationEvents::SimulationEvents()
 {
+	cont = 0;
+	event_ = NO_EVENT;
 }
 
-eventype
-SimulationEvents::getEvent()
-{
-	eventype ev = NO_EVENT;
-
-	return ev;
-}
 
 bool
 SimulationEvents::isThereEvent()
 {
-	return true;
+	if (event_ != NO_EVENT )
+		return true;
+	else
+		return false;
 }
 
 bool
 SimulationEvents::notQuit()
 {
+	//Funcion sin utilizar
 	return true;
 }
 
 void 
 SimulationEvents::setEvent(eventype)
 {
+	//Funcion sin utilizar
+}
 
+void 
+SimulationEvents::incrementCont(void)
+{
+	cont += 1;
+	if (cont == MAX_COUNTER_VALUE)
+		event_ = FULL_COUNTER;
 }

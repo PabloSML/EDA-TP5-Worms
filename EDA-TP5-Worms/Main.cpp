@@ -4,9 +4,7 @@
 #include "AllegroEvents.h"
 #include "SimulationEvents.h"
 
-static void dispatch(eventype, Drawable* drawables[3]);
-//void checkUserIntervention(ALLEGRO_EVENT,Worm*);
-//void redraw();
+static void dispatch(eventype, Drawable**,Worm*,char key, SimulationEvents*);
 
 using namespace std;
 
@@ -16,35 +14,37 @@ int main()
 	ALLEGRO_SAMPLE* sickBeats = NULL;
 	ALLEGRO_TIMER* timer = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
-	AllegroEvents ev;
-	bool quit = false;
 
 	if (initAll(display, timer, event_queue, sickBeats))	//Inicio los servicios de allegro
 	{
+		SimulationEvents ev2;
+		AllegroEvents ev(event_queue);
 		Scene background;
-		Worm* player = new Worm[PLAYERS];
+		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_POSITION_PLAYER_1,RIGHT),
+										 Worm(INICIAL_POSITION_PLAYER_2,LEFT),
+									   };
 		Drawable* drawables[OBJECTS_DRAWABLES] = { &background, &player[ONE], &player[TWO] };
 
 		if ( background.init(SCENARIO_FILE) && player[ONE].init(WORM_IMAGE) \
 			&& player[TWO].init(WORM_IMAGE) )		//Cargo los bitmaps del escenario y de cada worm
 		{
 			al_start_timer(timer);	//Comienza el contador
-			drawAll(drawables, OBJECTS_DRAWABLES, W_DIS, H_DIS);
 
 			do
 			{
-				if (ev.isThereEvent(event_queue))
-					dispatch(ev.getEvent(event_queue), drawables);
+				if (ev2.isThereEvent() && ev2.getEvent() == FULL_COUNTER)
+					ev2.setCounterToZero();
+				if (ev.isThereEvent())
+					dispatch(ev.getEvent(), drawables, player, ev.getKey(), &ev2);
 			} while (ev.notQuit());
 
-			background.deinit();	//Destruyo el bitmap de background
-			player[ONE].deinit();	//Destruyo el bitmap del worm 1
-			player[TWO].deinit();	//Destruyo el bitmap del worm 2
+			for (int i = 0; i < OBJECTS_DRAWABLES; i++)
+				drawables[i]->deinit(); //Destruyo el bitmap de background, el bitmap del worm 1 y el bitmap del worm 2
 		}
 		else
 			cerr << "Images load failure" << endl;	//Si no pude cargar el backgroung o algun worm muestro error
 
-		delete[] player;	
+		//delete[] player;	
 	}
 
 	deinitAll(display, timer, event_queue, sickBeats);	//Destruyo todos los servicios de allegro
@@ -53,21 +53,24 @@ int main()
 }
 
 
-static void dispatch(eventype ev, Drawable* drawables[OBJECTS_DRAWABLES])
+static void dispatch(eventype ev, Drawable* drawables[OBJECTS_DRAWABLES],Worm *player,char key, SimulationEvents* ev2)
 {
 	switch (ev)
 	{
 		case USER_WANTS_TO_WALK:
-			
+			for (int i = 0; i < CANT_OF_PLAYERS; i++)
+				player[i].walk(key, ev2->getCont());
 			break;
 		case USER_WANTS_TO_JUMP:
-			cout << "quiero saltar" <<endl;
+			for (int i = 0; i < CANT_OF_PLAYERS; i++)
+				player[i].jump(key);
 			break;
 		case QUIT:
 			cout << "quiero salir" << endl;
 			break;
 		case REFRESH:
-			//cout << "quiero refrescar" << endl;
+			ev2->incrementCont();
+			drawAll(drawables, OBJECTS_DRAWABLES, W_DIS, H_DIS);
 			break;
 	}
 }

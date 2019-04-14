@@ -4,27 +4,29 @@
 #include <allegro5/allegro.h>
 #include "eventGenerator.h"
 
-#define RIGHT	('>')
-#define	LEFT	('<')
-#define UP		('^')
-
 using namespace std;
 
 class AllegroEvents :public eventGenerator
 {
 public:
-	AllegroEvents();
+	//Constructor
+	AllegroEvents(ALLEGRO_EVENT_QUEUE*);
 
-	//int getKey() { return key; };
+	//Getters
+	char getKey(void) { return key; };
+	virtual eventype getEvent(void);
 
-	eventype getEvent(ALLEGRO_EVENT_QUEUE*);
-	bool isThereEvent(ALLEGRO_EVENT_QUEUE*);
-	bool notQuit();
-	void setEvent(eventype);
+	//Setter
+	virtual void setEvent(eventype);
+
+	//Metodos
+	virtual bool isThereEvent(void);
+	virtual bool notQuit(void);
 
 private:
 	char key;
 	bool quit;
+	ALLEGRO_EVENT_QUEUE* event_queue;
 };
 
 #endif 

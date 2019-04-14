@@ -1,13 +1,14 @@
 #include "AllegroEvents.h"
 
 
-AllegroEvents::AllegroEvents()
+AllegroEvents::AllegroEvents(ALLEGRO_EVENT_QUEUE* event_queue_)
 {
 	quit = false;
+	event_queue = event_queue_;
 }
 
 eventype
-AllegroEvents::getEvent(ALLEGRO_EVENT_QUEUE* event_queue)
+AllegroEvents::getEvent(void)
 {
 	ALLEGRO_EVENT ev;
 	al_get_next_event(event_queue, &ev);
@@ -19,10 +20,10 @@ AllegroEvents::getEvent(ALLEGRO_EVENT_QUEUE* event_queue)
 		{
 		case ALLEGRO_KEY_A:
 			key = 'a';
-			event =USER_WANTS_TO_WALK;
+			event = USER_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_LEFT:
-			key = LEFT;
+			key = '<';
 			event = USER_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_D:
@@ -30,7 +31,7 @@ AllegroEvents::getEvent(ALLEGRO_EVENT_QUEUE* event_queue)
 			event = USER_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_RIGHT:
-			key = RIGHT;
+			key = '>';
 			event = USER_WANTS_TO_WALK;
 			break;
 		case ALLEGRO_KEY_W:
@@ -38,7 +39,7 @@ AllegroEvents::getEvent(ALLEGRO_EVENT_QUEUE* event_queue)
 			event = USER_WANTS_TO_JUMP;
 			break;
 		case ALLEGRO_KEY_UP:
-			key = UP;
+			key = '^';
 			event = USER_WANTS_TO_JUMP;
 			break;
 		case ALLEGRO_KEY_ESCAPE:
@@ -59,7 +60,7 @@ AllegroEvents::getEvent(ALLEGRO_EVENT_QUEUE* event_queue)
 }
 
 bool
-AllegroEvents::isThereEvent(ALLEGRO_EVENT_QUEUE* event_queue)
+AllegroEvents::isThereEvent(void)
 {
 	if (al_is_event_queue_empty(event_queue))
 		return false;
