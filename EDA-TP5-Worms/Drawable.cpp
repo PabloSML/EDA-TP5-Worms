@@ -1,6 +1,4 @@
 #include "Drawable.h"
-#include <iostream>
-using namespace std;
 
 bool
 Drawable::init(const char* fileName)
@@ -22,11 +20,11 @@ Drawable::deinit()
 }
 
 void
-drawAll(Drawable** drawables, int cant)
+drawAll(Drawable** drawables, int cant,float w_dis, float h_dis)
 {
 	for (int i = 0; i < cant; i++)
 	{
-		drawables[i]->draw();
+		drawables[i]->draw(w_dis,h_dis);
 	}
 }
 
