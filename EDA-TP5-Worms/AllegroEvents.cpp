@@ -12,11 +12,10 @@ AllegroEvents::getEvent(void)
 {
 	ALLEGRO_EVENT ev;
 	al_get_next_event(event_queue, &ev);
-	//al_flush_event_queue(event_queue);
 	eventype event = NO_EVENT;
 
-	if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
-	{
+	if (ev.type == ALLEGRO_EVENT_KEY_DOWN)  //Con este evento empieza nuevamente el timer o se cierra la ventana
+	{										//si se presiona la tecla ESC
 		switch (ev.keyboard.keycode)
 		{
 			case ALLEGRO_KEY_A: case ALLEGRO_KEY_LEFT: case ALLEGRO_KEY_D:
@@ -29,8 +28,8 @@ AllegroEvents::getEvent(void)
 				break;
 		}
 	}
-	else if (ev.type == ALLEGRO_EVENT_KEY_UP)
-	{
+	else if (ev.type == ALLEGRO_EVENT_KEY_UP)  //Este evento avisa cuando la tecla se dejo de presionar, para determinar
+	{										  //el moviemnto o solo el cambio de mirada
 		switch (ev.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_A:
@@ -59,16 +58,16 @@ AllegroEvents::getEvent(void)
 			break;
 		}
 	}
-	else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+	else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)	//Evento para cerrar la ventana desde la cruz del display
 	{
 		quit = true;
 		event = QUIT;
 	}
-	else if (ev.type == ALLEGRO_EVENT_TIMER)
+	else if (ev.type == ALLEGRO_EVENT_TIMER)	//Evento para redibujar la pantalla
 		event = REFRESH;
 
 	//if (event != REFRESH)
-	//	cout << "evento :" << event << endl;
+	//	cout << "evento :" << event << endl;	//Solo para debugging, borrar antes de entregar
 
 	return event;
 }
@@ -95,5 +94,5 @@ AllegroEvents::notQuit()
 void
 AllegroEvents::setEvent(eventype)
 {
-
+	//Funcion sin utilizar
 }

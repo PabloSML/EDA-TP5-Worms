@@ -10,7 +10,7 @@ Worm::Worm(float x_, float y_, direction dir_)
 void
 Worm::draw(float w_dis, float h_dis)
 {
-	if (look == RIGHT)
+	if (look == RIGHT) //si el worm tiene que mirar hacia la derecha roto el bitmap
 	{
 		//al_draw_filled_circle(701* POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST,10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar
 		//al_draw_filled_circle(1212*POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST,10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar
@@ -18,8 +18,8 @@ Worm::draw(float w_dis, float h_dis)
 							 (pos_x * POS_X_RATIO_AJUST) - (w_dis * RATIO_WORM_AJUST * ERROR_BORDER_WIDTH_RATIO), \
 							 (pos_y * POS_Y_RATIO_AJUST) - (h_dis * RATIO_WORM_AJUST * ERROR_BORDER_HIGH_RATIO), \
 							  w_dis * RATIO_WORM_AJUST, h_dis * RATIO_WORM_AJUST, ALLEGRO_FLIP_HORIZONTAL);
-	}
-	else
+	} 
+	else //Dibujo la imagen del worm normal
 	{
 		//al_draw_filled_circle(701 * POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST, 10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar
 		//al_draw_filled_circle(1212 *POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST, 10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar

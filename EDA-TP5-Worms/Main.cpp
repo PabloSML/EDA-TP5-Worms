@@ -17,12 +17,10 @@ int main()
 
 	if (initAll(display, timer, event_queue, sickBeats))	//Inicio los servicios de allegro
 	{
-		SimulationEvents ev2;
-		AllegroEvents ev(event_queue);
+		SimulationEvents ev2;	//Creo un objeto para eventos de la simulacion
+		AllegroEvents ev(event_queue); //Creo un objeto para eventos de Allegro
 		Scene background;
-		Worm player[CANT_OF_PLAYERS] = { /*Worm((H_DIS*POS_Y_RATIO_AJUST) - ERROR_BORDER_IMAGE_HIGH, (W_DIS*POS_X_MIN_RATIO_AJUST) + ERROR_BORDER_IMAGE_WIDTH,RIGHT),
-										 Worm((H_DIS*POS_Y_RATIO_AJUST) - ERROR_BORDER_IMAGE_HIGH, (W_DIS*POS_X_MAX_RATIO_AJUST) - ERROR_BORDER_IMAGE_WIDTH,RIGHT),*/
-										 Worm(INICIAL_X_POSITION_PLAYER_1, INICIAL_Y_POSITION_PLAYER_2, RIGHT),
+		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_X_POSITION_PLAYER_1, INICIAL_Y_POSITION_PLAYER_2, RIGHT),
 										 Worm(INICIAL_X_POSITION_PLAYER_2, INICIAL_Y_POSITION_PLAYER_2, LEFT),
 									   }; //Reescribir con new en caso de querer elegir la cantidad de players en tiempo de ejecucion
 		Drawable* drawables[OBJECTS_DRAWABLES] = { &background, &player[ONE], &player[TWO] };
@@ -30,17 +28,17 @@ int main()
 		if ( background.init(SCENARIO_FILE) && player[ONE].init(WORM_IMAGE) \
 			&& player[TWO].init(WORM_IMAGE) )		//Cargo los bitmaps del escenario y de cada worm
 		{
-			al_start_timer(timer);	//Comienza el contador
+			al_start_timer(timer);	//Comienza el timer
 			do
 			{
-				//printf("contador de eventos de timer: %d \n", ev2.getCont());
-				if (ev2.isThereEvent() && ev2.getEvent() == FULL_COUNTER)
+				//printf("contador de eventos de timer: %d \n", ev2.getCont()); //Solo para debugging, borrar antes de entregar
+				if (ev2.isThereEvent() && ev2.getEvent() == FULL_COUNTER)		//Si llegue a 1000ms
 				{
-					ev2.setCounterToZero();
-					al_stop_timer(timer);
-					printf("pare el contador \n");
+					ev2.setCounterToZero();	//Reseteo el contador
+					al_stop_timer(timer);	//Detengo el timer hasta que llegue otro evento que me interese
+					//printf("pare el contador \n");		//Solo para debugging, borrar antes de entregar
 				} 
-				if (ev.isThereEvent())
+				if (ev.isThereEvent())		//si hay un evento de allegro
 				{
 					dispatch(drawables, player, ev.getKey(), &ev2, ev.getEvent(),timer);
 				}
@@ -66,30 +64,30 @@ static void dispatch(Drawable* drawables[OBJECTS_DRAWABLES],Worm *player,char ke
 	switch (ev)
 	{
 		case USER_PRESS_IMPORTANCE_KEY:
-			al_start_timer(timer);	//Comienza el contador
+			al_start_timer(timer);	//Comienza el timer si el usuario presiono una tecla de importancia	
 			break;
 		case PLAYER_1_WANTS_TO_WALK:
-			cout << "quiero caminar1" << key << endl;
+			//cout << "quiero caminar1" << key << endl; //Solo para debugging, borrar antes de entregar
 			player[ONE].walk(key, ev2->getCont());
 			break;
 		case PLAYER_2_WANTS_TO_WALK:
-			cout << "quiero caminar2" << key << endl;
+			//cout << "quiero caminar2" << key << endl; //Solo para debugging, borrar antes de entregar
 			player[TWO].walk(key, ev2->getCont());
 			break;
 		case PLAYER_1_WANTS_TO_JUMP:
-			cout << "quiero saltar1" << key << endl;
+			//cout << "quiero saltar1" << key << endl; //Solo para debugging, borrar antes de entregar
 			player[ONE].jump();
 			break;
 		case PLAYER_2_WANTS_TO_JUMP:
-			cout << "quiero saltar2" << key << endl;
+			//cout << "quiero saltar2" << key << endl; //Solo para debugging, borrar antes de entregar
 			player[TWO].jump();
 			break;
 		case QUIT:
-			cout << "quiero salir" << endl;
+			//cout << "quiero salir" << endl; //Solo para debugging, borrar antes de entregar
 			break;
 		case REFRESH:
-			ev2->incrementCont();
-			drawAll(drawables, OBJECTS_DRAWABLES, W_DIS, H_DIS);
+			ev2->incrementCont(); //Cada ves que actualizo la pantalla (cada 20ms) aumento el contador de la simulacion
+			drawAll(drawables, OBJECTS_DRAWABLES, W_DIS, H_DIS);	//Dibujo el escenario y los worms
 			break;
 	}
 }
