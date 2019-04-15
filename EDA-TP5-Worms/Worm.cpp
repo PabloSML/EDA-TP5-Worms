@@ -34,12 +34,12 @@ Worm::draw(float w_dis, float h_dis)
 void
 Worm::walk(char key, int cont)
 {
-	if (cont > MOVE_THRESHOLD && (key == 'd' || key == '>'))
+	if (cont > MOVE_THRESHOLD && (key == 'd' || key == '>') && pos_x < 1125) //le reste 60 mas por el tamaño del gusano
 	{
 		look = RIGHT;
 		pos_x += MOVEMENT_UNIT;	//Mueve el worm 27 pixeles a la derecha
 	}
-	else if (cont > MOVE_THRESHOLD && (key == 'a' || key == '<'))
+	else if (cont > MOVE_THRESHOLD && (key == 'a' || key == '<') && pos_x > 728)
 	{
 		look = LEFT;
 		pos_x -= MOVEMENT_UNIT;	//Mueve el worm 27 pixeles a la izquierda
