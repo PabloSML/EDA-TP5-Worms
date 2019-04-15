@@ -12,17 +12,15 @@
 #define INICIAL_X_POSITION_PLAYER_2 (1200.0)	//FALTA DEBUGUEAR LA POSICION INCIAL
 #define INICIAL_Y_POSITION_PLAYER_2 (616.0)
 #define MOVE_THRESHOLD (5) //El timer da eventos cada 20 ms. Si se multiplica por 5 seran 100ms (el umbral elegido para el movimiento)
-#define MOVEMENT_UNIT  (27.0)
+#define MOVEMENT_UNIT  (27.0)			//El worm se mueve a razon de 27 pixeles 
 #define POS_X_RATIO_AJUST (0.7114583)	//Ajuste de resolucion eje x
-#define POS_Y_RATIO_AJUST (1.1034483)
-#define ERROR_BORDER_IMAGE_HIGH (42.0)
-#define ERROR_BORDER_IMAGE_WIDTH (30)
-//#define ERROR_BORDER_IMAGE_WIDTH_FLIP ()
-#define TOTALS_IMAGE_PIXELS (60)
-#define RATIO_WORM_AJUST (0.08)
-#define ERROR_BORDER_HIGH_RATIO (ERROR_BORDER_IMAGE_HIGH / TOTALS_IMAGE_PIXELS)
+#define POS_Y_RATIO_AJUST (1.1034483)	//Ajuste de resolucion eje y
+#define ERROR_BORDER_IMAGE_HIGH (42.0)	//La imagen tiene que "correrse" 42.0 para que el worm sea dibujado correctamente
+#define ERROR_BORDER_IMAGE_WIDTH (30)	//La imagen tiene que "correrse" para que el worm se dibuje correctamente y que se quede en el mismo lugar cuando "flipee"
+#define TOTALS_IMAGE_PIXELS (60)		//Pixeles de ancho y largo de las imagenes de los worms
+#define RATIO_WORM_AJUST (0.08)			//Porcentaje de reduccion de las imagenes originales (eleccion propia)
+#define ERROR_BORDER_HIGH_RATIO (ERROR_BORDER_IMAGE_HIGH / TOTALS_IMAGE_PIXELS)		
 #define ERROR_BORDER_WIDTH_RATIO (ERROR_BORDER_IMAGE_WIDTH / TOTALS_IMAGE_PIXELS)
-//#define ERROR_BORDER_WIDTH_RATIO_FLIP (ERROR_BORDER_IMAGE_WIDTH_FLIP / TOTALS_IMAGE_PIXELS)
 
 
 
