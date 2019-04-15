@@ -4,7 +4,7 @@
 #include "AllegroEvents.h"
 #include "SimulationEvents.h"
 
-static void dispatch(Drawable**,Worm*,char key, SimulationEvents*, eventype);
+static void dispatch(Drawable*[OBJECTS_DRAWABLES], Worm*, char key, SimulationEvents*, eventype, ALLEGRO_TIMER*);
 
 using namespace std;
 
@@ -20,25 +20,27 @@ int main()
 		SimulationEvents ev2;
 		AllegroEvents ev(event_queue);
 		Scene background;
-		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_POSITION_PLAYER_1,RIGHT),
-										 Worm(INICIAL_POSITION_PLAYER_2,LEFT),
-									   };
+		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_POSITION_PLAYER_1,LEFT),
+										 Worm(INICIAL_POSITION_PLAYER_2,RIGHT),
+									   }; //Reescribir con new en caso de querer elegir la cantidad de players en tiempo de ejecucion
 		Drawable* drawables[OBJECTS_DRAWABLES] = { &background, &player[ONE], &player[TWO] };
 
 		if ( background.init(SCENARIO_FILE) && player[ONE].init(WORM_IMAGE) \
 			&& player[TWO].init(WORM_IMAGE) )		//Cargo los bitmaps del escenario y de cada worm
 		{
 			al_start_timer(timer);	//Comienza el contador
-
 			do
 			{
+				//printf("contador de eventos de timer: %d \n", ev2.getCont());
 				if (ev2.isThereEvent() && ev2.getEvent() == FULL_COUNTER)
+				{
 					ev2.setCounterToZero();
+					al_stop_timer(timer);
+					printf("pare el contador \n");
+				} 
 				if (ev.isThereEvent())
 				{
-					//eventype ev_ = ev.getEvent();
-					//char key_ = ev.getKey();
-					dispatch(drawables, player, ev.getKey(), &ev2, ev.getEvent());
+					dispatch(drawables, player, ev.getKey(), &ev2, ev.getEvent(),timer);
 				}
 			} while (ev.notQuit());
 
@@ -48,7 +50,7 @@ int main()
 		else
 			cerr << "Images load failure" << endl;	//Si no pude cargar el backgroung o algun worm muestro error
 
-		//delete[] player;	
+		//delete[] player;	//Descomentar esta linea solo en el caso de usar new y elegir la cantidad de players en tiempo de ejecucion
 	}
 
 	deinitAll(display, timer, event_queue, sickBeats);	//Destruyo todos los servicios de allegro
@@ -57,12 +59,15 @@ int main()
 }
 
 
-static void dispatch(Drawable* drawables[OBJECTS_DRAWABLES],Worm *player,char key, SimulationEvents* ev2, eventype ev)
+static void dispatch(Drawable* drawables[OBJECTS_DRAWABLES],Worm *player,char key, SimulationEvents*ev2, eventype ev,ALLEGRO_TIMER *timer)
 {
 	switch (ev)
 	{
+		case USER_PRESS_IMPORTANCE_KEY:
+			al_start_timer(timer);	//Comienza el contador
+			break;
 		case PLAYER_1_WANTS_TO_WALK:
-			cout << "quiero caminar1"<< key << endl;
+			cout << "quiero caminar1" << key << endl;
 			player[ONE].walk(key, ev2->getCont());
 			break;
 		case PLAYER_2_WANTS_TO_WALK:

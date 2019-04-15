@@ -9,7 +9,7 @@
 #define OBJECTS_DRAWABLES (CANT_OF_PLAYERS+1)	//Cantidad de objetos dibujables = jugadores + escenario
 #define INICIAL_POSITION_PLAYER_1 (701.0)
 #define INICIAL_POSITION_PLAYER_2 (1212.0)
-#define MOVE_THRESHOLD (5) //El timer da eventos cada 20 ms. Si se multiplica por 5 seran 100ms (el umbral elegido para el movimiento)
+#define MOVE_THRESHOLD (25) //El timer da eventos cada 20 ms. Si se multiplica por 5 seran 100ms (el umbral elegido para el movimiento)
 #define MOVEMENT_UNIT  (27.0)
 #define ERROR_AJUST (5.5)
 #define POS_Y (616.0 + ERROR_AJUST)
@@ -35,10 +35,8 @@ public:
 	void jump();
 
 private:
-
 	float pos_x;
 	float pos_y;
-	direction old_look;
 	direction look;
 };
 

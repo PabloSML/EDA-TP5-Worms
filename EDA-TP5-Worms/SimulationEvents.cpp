@@ -34,7 +34,8 @@ SimulationEvents::setEvent(eventype)
 void 
 SimulationEvents::incrementCont(void)
 {
-	cont += 1;
-	if (cont == MAX_COUNTER_VALUE)
+	if (cont  + 1 == MAX_COUNTER_VALUE)
 		event_ = FULL_COUNTER;
+	else
+		cont += 1;
 }

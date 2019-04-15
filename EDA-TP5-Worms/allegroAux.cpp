@@ -3,7 +3,7 @@
 using namespace std;
 
 bool
-initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer, ALLEGRO_EVENT_QUEUE*& event_queue, ALLEGRO_SAMPLE*& sickBeats)
+initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer,ALLEGRO_EVENT_QUEUE*& event_queue, ALLEGRO_SAMPLE*& sickBeats)
 {
 	// Instalamos Allegro
 	if (!al_init())

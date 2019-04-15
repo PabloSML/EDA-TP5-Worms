@@ -19,6 +19,20 @@ AllegroEvents::getEvent(void)
 	{
 		switch (ev.keyboard.keycode)
 		{
+			case ALLEGRO_KEY_A: case ALLEGRO_KEY_LEFT: case ALLEGRO_KEY_D:
+			case ALLEGRO_KEY_RIGHT: case ALLEGRO_KEY_W: case ALLEGRO_KEY_UP:
+				event = USER_PRESS_IMPORTANCE_KEY;
+				break;
+			case ALLEGRO_KEY_ESCAPE:
+				quit = true;
+				event = QUIT;
+				break;
+		}
+	}
+	else if (ev.type == ALLEGRO_EVENT_KEY_UP)
+	{
+		switch (ev.keyboard.keycode)
+		{
 		case ALLEGRO_KEY_A:
 			key = 'a';
 			event = PLAYER_1_WANTS_TO_WALK;
@@ -43,10 +57,6 @@ AllegroEvents::getEvent(void)
 			key = '^';
 			event = PLAYER_2_WANTS_TO_JUMP;
 			break;
-		case ALLEGRO_KEY_ESCAPE:
-			quit = true;
-			event = QUIT;
-			break;
 		}
 	}
 	else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -57,8 +67,8 @@ AllegroEvents::getEvent(void)
 	else if (ev.type == ALLEGRO_EVENT_TIMER)
 		event = REFRESH;
 
-	if (event != REFRESH)
-		cout << event << endl;
+	//if (event != REFRESH)
+	//	cout << "evento :" << event << endl;
 
 	return event;
 }
