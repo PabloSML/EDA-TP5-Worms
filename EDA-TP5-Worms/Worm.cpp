@@ -1,8 +1,8 @@
 #include "Worm.h"
 
-Worm::Worm(float x_, direction dir_)
+Worm::Worm(float x_, float y_, direction dir_)
 {
-	pos_y = POS_Y;
+	pos_y = y_;
 	pos_x = x_;
 	look = dir_;
 }
@@ -12,15 +12,21 @@ Worm::draw(float w_dis, float h_dis)
 {
 	if (look == RIGHT)
 	{
-		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), \
-							  al_get_bitmap_height(image), pos_x - w_dis / 20, pos_y - h_dis / 20, \
-							  w_dis / 10, h_dis / 10, ALLEGRO_FLIP_HORIZONTAL);
+		//al_draw_filled_circle(701* POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST,10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar
+		//al_draw_filled_circle(1212*POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST,10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar
+		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), \
+							 (pos_x * POS_X_RATIO_AJUST) - (w_dis * RATIO_WORM_AJUST * ERROR_BORDER_WIDTH_RATIO), \
+							 (pos_y * POS_Y_RATIO_AJUST) - (h_dis * RATIO_WORM_AJUST * ERROR_BORDER_HIGH_RATIO), \
+							  w_dis * RATIO_WORM_AJUST, h_dis * RATIO_WORM_AJUST, ALLEGRO_FLIP_HORIZONTAL);
 	}
 	else
 	{
-		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), \
-							  al_get_bitmap_height(image), pos_x - w_dis / 10, pos_y - h_dis / 20, \
-			                  w_dis / 10, h_dis / 10, 0);
+		//al_draw_filled_circle(701 * POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST, 10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar
+		//al_draw_filled_circle(1212 *POS_X_RATIO_AJUST, 616*POS_Y_RATIO_AJUST, 10, al_map_rgb(255, 255, 255)); //solo para debugging, borrar antes de entregar
+		al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image),al_get_bitmap_height(image), \
+							 (pos_x * POS_X_RATIO_AJUST) - (w_dis * RATIO_WORM_AJUST * ERROR_BORDER_WIDTH_RATIO) , \
+							 (pos_y * POS_Y_RATIO_AJUST) - (h_dis * RATIO_WORM_AJUST * ERROR_BORDER_HIGH_RATIO), \
+			                  w_dis * RATIO_WORM_AJUST, h_dis * RATIO_WORM_AJUST, 0);
 	}
 	al_flip_display();
 }

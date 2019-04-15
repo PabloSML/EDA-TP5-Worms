@@ -20,8 +20,10 @@ int main()
 		SimulationEvents ev2;
 		AllegroEvents ev(event_queue);
 		Scene background;
-		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_POSITION_PLAYER_1,LEFT),
-										 Worm(INICIAL_POSITION_PLAYER_2,RIGHT),
+		Worm player[CANT_OF_PLAYERS] = { /*Worm((H_DIS*POS_Y_RATIO_AJUST) - ERROR_BORDER_IMAGE_HIGH, (W_DIS*POS_X_MIN_RATIO_AJUST) + ERROR_BORDER_IMAGE_WIDTH,RIGHT),
+										 Worm((H_DIS*POS_Y_RATIO_AJUST) - ERROR_BORDER_IMAGE_HIGH, (W_DIS*POS_X_MAX_RATIO_AJUST) - ERROR_BORDER_IMAGE_WIDTH,RIGHT),*/
+										 Worm(INICIAL_X_POSITION_PLAYER_1, INICIAL_Y_POSITION_PLAYER_2, RIGHT),
+										 Worm(INICIAL_X_POSITION_PLAYER_2, INICIAL_Y_POSITION_PLAYER_2, LEFT),
 									   }; //Reescribir con new en caso de querer elegir la cantidad de players en tiempo de ejecucion
 		Drawable* drawables[OBJECTS_DRAWABLES] = { &background, &player[ONE], &player[TWO] };
 

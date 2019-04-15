@@ -102,6 +102,10 @@ initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer,ALLEGRO_EVENT_QUEUE*& e
 		al_uninstall_audio();
 		return FAILURE;
 	}
+
+	al_init_primitives_addon(); //solo para debugging, borrar antes de entregar
+
+
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());

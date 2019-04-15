@@ -5,12 +5,13 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_primitives.h>	//solo para debugging, borrar antes de entregar
 
 #define SUCCESS 1
 #define FAILURE 0
 #define FPS 50.0
-#define W_DIS 1200
-#define H_DIS 720
+#define W_DIS 1366	//Si se cambia la resolucion se debe modificar POS_X_RATIO_AJUST y POS_Y_RATIO_AJUST en Worm.h
+#define H_DIS 768	//Si se cambia la resolucion se debe modificar POS_X_RATIO_AJUST y POS_Y_RATIO_AJUST en Worm.h
 #define OST_FILE "coda.wav"
 #define SCENARIO_FILE "Scenario.png"
 #define WORM_IMAGE "wwalk-F4.png"
