@@ -224,10 +224,11 @@ Worm::update()
 	case JUMPING: case STOP_JUMPING:
 		deloadimg();
 		counter++;
-		posx0 = pos_x;	//se guarda la posicion inicial en x para hacer el calculo de trayectoria
 
 		if (counter < 3 || counter == 49)	// dos frames sin movimiento al principio y al final
 		{
+			if(counter == 1)
+				posx0 = pos_x;	//se guarda la posicion inicial en x para hacer el calculo de trayectoria
 			loadimg(WALK1);
 		}
 		else if (counter < 7)
@@ -237,24 +238,22 @@ Worm::update()
 		}
 		else if (counter < 40)
 		{
-			cout << pos_y << endl;
 			t = counter - 6; // establece la relacion entre t (tiempo teorico) y el numero de frame
 
 			if (look == RIGHT)
 			{
-				pos_x = posx0 + 4.5*cosf(M_PI / 3)*t;
+				pos_x = posx0 + 4.5*(1.0/2.0)*t;	// 1/2 = cos(60)
 				if (pos_x > POS_MAX_X)
 					pos_x = POS_MAX_X;
 			}
 			else if (look == LEFT)
 			{
-				pos_x = posx0 - 4.5*cosf(M_PI / 3)*t;
+				pos_x = posx0 - 4.5*(1.0/2.0)*t;
 				if (pos_x < POS_MIN_X)
 					pos_x = POS_MIN_X;
 			}
 
-			pos_y = (INICIAL_Y_POSITION_PLAYER_2) - (4.5)*(sinf(M_PI / 3.0))*(t) + (1 / 2) * (0.24) * (pow(t, 2.0));
-			cout << pos_y << endl;
+			pos_y = (INICIAL_Y_POSITION_PLAYER_2) - (4.5)*(sin(M_PI / 3.0))*(t) + (1.0 / 2.0) * (0.24) * t * t;
 
 			loadimg(jumpCycle[4]);
 		}

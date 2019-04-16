@@ -110,7 +110,7 @@ initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer,ALLEGRO_EVENT_QUEUE*& e
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-	//al_play_sample(sickBeats, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
+	al_play_sample(sickBeats, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
 
 	return SUCCESS;
 }
