@@ -84,11 +84,11 @@ public:
 
 	void update();
 
-	void startWalking(char key);
-	void stopWalking(char key);
+	void startWalking(char key);	//Movimiento del worm
+	void stopWalking(char key);		//El worm deja de moverse si se solto alguna tecla de movimiento correspondiente
 
-	void startJumping(char key);
-	void stopJumping(char key);
+	void startJumping(char key);	//Salto del worm
+	void stopJumping(char key);		//El worm deja de saltar si se solto la tecla de salto  correspondiente
 
 private:
 	const char* name;	

@@ -13,7 +13,7 @@ using namespace std;
 //*************************************************DEFINES*************************************************
 #define SUCCESS 1
 #define FAILURE 0
-#define FPS 50.0
+#define FPS 50.0	//valor para que se realizen timer events cada 20ms
 #define W_DIS 1366	//Si se cambia la resolucion se debe modificar POS_X_RATIO_AJUST y POS_Y_RATIO_AJUST en Worm.h
 #define H_DIS 768	// y POS_Y_RATIO_AJUST en Worm.h, siguiendo los valores de la tabla******
 //******* TABLA RESOLUCION/POS_X_RATIO_AJUST - POS_Y_RATIO_AJUST *******
@@ -25,7 +25,7 @@ Resolucion  |  POS_X_RATIO_AJUST  |  POS_Y_RATIO_AJUST
 1024x720	|	  0.5333334		  |		1.0344827
 800x600		|	  0.4166667		  |		0.8620690
 */
-#define OST_FILE "coda.wav"
+#define OST_FILE "coda.wav"	//pista de audio
 
 //*************************************************FUNCIONES*************************************************
 // funciones de inicializacion y destruccion de allegro

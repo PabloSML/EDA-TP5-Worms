@@ -41,29 +41,29 @@ Worm::draw(float w_dis, float h_dis)
 void
 Worm::startWalking(char key)
 {
-	if (state == IDLE)
+	if (state == IDLE)	//Verifico que el worm este quieto
 	{
-		if (name == WORM1_NAME)
+		if (name == WORM1_NAME)	 //Verifico que sea el worm 1  para utilizar las teclas correspondientes 
 		{
-			if (key == '>')
+			if (key == '>')		//Si se presiono la flecha derecha
 			{
 				look = RIGHT;
 				state = START_WALKING;
 			}
-			else if (key == '<')
+			else if (key == '<') //Si se presiono la flecha derecha
 			{
 				look = LEFT;
 				state = START_WALKING;
 			}
 		}
-		else if (name == WORM2_NAME)
+		else if (name == WORM2_NAME) // Verifico que sea el worm 2  para utilizar las teclas correspondientes
 		{
-			if (key == 'd')
+			if (key == 'd')		//Si se presiono la tecla d
 			{
-				look = RIGHT;
-				state = START_WALKING;
+				look = RIGHT;	
+				state = START_WALKING; 
 			}
-			else if (key == 'a')
+			else if (key == 'a')	//Si se presiono la tecla a
 			{
 				look = LEFT;
 				state = START_WALKING;
@@ -72,30 +72,33 @@ Worm::startWalking(char key)
 	}
 }
 void
+
 Worm::stopWalking(char key)
 {
-	if (state == START_WALKING || state == WALKING)
+	if (state == START_WALKING || state == WALKING)		 //verifico los estaods del worm
 	{
-		if (name == WORM1_NAME && (key == '>' || key == '<'))
+		if (name == WORM1_NAME && (key == '>' || key == '<'))	//verifico que el worm 1 y sus teclas coincidan
 			state = STOP_WALKING;
-		else if (name == WORM2_NAME && (key == 'd' || key == 'a'))
+		else if (name == WORM2_NAME && (key == 'd' || key == 'a')) //verifico que el worm 2 y sus teclas coincidan
 			state = STOP_WALKING;
 	}
 }
 void
+
 Worm::startJumping(char key)
 {
 	if (state == IDLE && ((name == WORM1_NAME && key == '^') || (name == WORM2_NAME && key == 'w')))
 		state = JUMPING;
 }
 void
+
 Worm::stopJumping(char key)
 {
-	if (state == JUMPING)
+	if (state == JUMPING)	//verifico el estado del worm
 	{
-		if(name == WORM1_NAME && key == '^')
+		if(name == WORM1_NAME && key == '^')	//verifico que el worm 1 y sus teclas coincidan
 			state = STOP_JUMPING;
-		else if (name == WORM2_NAME && key == 'w')
+		else if (name == WORM2_NAME && key == 'w')  //verifico que el worm 2 y sus teclas coincidan
 			state = STOP_JUMPING;
 	}
 }
