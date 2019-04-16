@@ -1,35 +1,4 @@
 #include "Worm.h"
-#define _USE_MATH_DEFINES
-#include <math.h>
-#define GRAV = (0.24)
-//************ IMAGENES DE WALK **********************
-#define WALK1 "wwalk-F1.png"
-#define WALK2 "wwalk-F2.png"
-#define WALK3 "wwalk-F3.png"
-#define WALK4 "wwalk-F4.png"
-#define WALK5 "wwalk-F5.png"
-#define WALK6 "wwalk-F6.png"
-#define WALK7 "wwalk-F7.png"
-#define WALK8 "wwalk-F8.png"
-#define WALK9 "wwalk-F9.png"
-#define WALK10 "wwalk-F10.png"
-#define WALK11 "wwalk-F11.png"
-#define WALK12 "wwalk-F12.png"
-#define WALK13 "wwalk-F13.png"
-#define WALK14 "wwalk-F14.png"
-#define WALK15 "wwalk-F15.png"
-//************ IMAGENES DE JUMP **********************
-#define JUMP1 "wjump-F1.png"
-#define JUMP2 "wjump-F2.png"
-#define JUMP3 "wjump-F3.png"
-#define JUMP4 "wjump-F4.png"
-#define JUMP5 "wjump-F5.png"
-#define JUMP6 "wjump-F6.png"
-#define JUMP7 "wjump-F7.png"
-#define JUMP8 "wjump-F8.png"
-#define JUMP9 "wjump-F9.png"
-#define JUMP10 "wjump-F10.png"
-//*****************************************************
 
 Worm::Worm(float x_, float y_, direction dir_, const char* name)
 {

@@ -1,9 +1,8 @@
-#include <iostream>
 #include "allegroAux.h"
-using namespace std;
 
 bool
-initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer,ALLEGRO_EVENT_QUEUE*& event_queue, ALLEGRO_SAMPLE*& sickBeats)
+initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer,ALLEGRO_EVENT_QUEUE*& event_queue,\
+	    ALLEGRO_SAMPLE*& sickBeats)
 {
 	// Instalamos Allegro
 	if (!al_init())
@@ -103,21 +102,19 @@ initAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer,ALLEGRO_EVENT_QUEUE*& e
 		return FAILURE;
 	}
 
-	al_init_primitives_addon(); //solo para debugging, borrar antes de entregar
+	al_register_event_source(event_queue, al_get_display_event_source(display));	//Registro al display como generador de eventos
+	al_register_event_source(event_queue, al_get_timer_event_source(timer));	//Registro al timer como generador de eventos
+	al_register_event_source(event_queue, al_get_keyboard_event_source());	//Registro al teclado como generador de eventos
 
-
-	al_register_event_source(event_queue, al_get_display_event_source(display));
-	al_register_event_source(event_queue, al_get_timer_event_source(timer));
-	al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-	al_play_sample(sickBeats, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
+	al_play_sample(sickBeats, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);	//Comienza la cancion
 
 	return SUCCESS;
 }
 
 
 void
-deinitAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer, ALLEGRO_EVENT_QUEUE*& event_queue, ALLEGRO_SAMPLE*& sickBeats)
+deinitAll(ALLEGRO_DISPLAY*& display, ALLEGRO_TIMER*& timer, ALLEGRO_EVENT_QUEUE*& event_queue,\
+		  ALLEGRO_SAMPLE*& sickBeats)
 {
 	al_destroy_timer(timer);
 	al_destroy_display(display);
