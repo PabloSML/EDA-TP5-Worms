@@ -106,26 +106,28 @@ Worm::stopJumping(char key)
 void
 Worm::update()
 {
-	int index;
-	int t;
+	int index;	// este index sera usado para acceder a los respectivos arreglos de imagenes walkCycle y jumpCycle
+	int t;	// t representa la variable temporal para la fisica de los worms. En esta implementacion esta ligada a los frames
 	switch (state)
 	{
 	case IDLE:
 		break;
-	case START_WALKING:
+	case START_WALKING:		// en el estado START_WALKING se espera que pasen los 100ms para pasar al estado WALKING si no se recibe otro evento (warm-up)
 		counter++;
 		if (counter == MOVE_THRESHOLD)
 			state = WALKING;
 		break;
-	case WALKING: case STOP_WALKING:
-		if (counter < 5)	// si o si estoy en STOP_WALKING
+	case WALKING: case STOP_WALKING:	// los dos estados ejecutan el walkCycle del worm. La diferencia es que al concluir, WALKING pasa a START WALKING
+//											mientras que STOP_WALKING pasa a IDLE
+
+		if (counter < MOVE_THRESHOLD)	// si o si se esta en STOP_WALKING. Se resetea el contador y se pasa a IDLE
 		{
 			counter = 0;
 			state = IDLE;
 			deloadimg();
 			loadimg(walkCycle[0]);
 		}
-		else if (counter == MOVE_THRESHOLD)
+		else if (counter == MOVE_THRESHOLD)	// las primeras tres imagenes que se muestran pasado el MOVE_THRESHOLD corresponden al warm-up visual del worm
 		{
 			counter++;
 			deloadimg();
@@ -143,16 +145,17 @@ Worm::update()
 			deloadimg();
 			loadimg(WALK3);
 		}
-		else
+		else    // una vez realizado el warm-up visual, se entra en el walkCyle, el cual correra tres veces desplazando el worm en 27 pixeles en total
 		{
-			if ((look == LEFT && (pos_x - MOVEMENT_UNIT) > POS_MIN_X) || (look == RIGHT && (pos_x + MOVEMENT_UNIT) < POS_MAX_X))
+			if ((look == LEFT && (pos_x - MOVEMENT_UNIT) > POS_MIN_X) || (look == RIGHT && (pos_x + MOVEMENT_UNIT) < POS_MAX_X)) // se verifica no salir de los limites
 			{
 				counter++;
-				index = counter - 9;	//obtengo un indice para el walkCycle
+				index = counter - 9;	// este offset de 9 permite a index apuntar a la imagen de walkCycle que corresponde e incrementarse a la par del counter
 				deloadimg();
-				if (index < 13)
+				if (index < 13)		// durante los primeros frames, la imagen simula movimiento aunque la pos_x del worm no varia
 					loadimg(walkCycle[index]);
-				else if (index == 13 || index == 27)
+				else if (index == 13 || index == 27) // en estos frames se realiza efectivamente un desplazamiento de 9 pixeles del worm. 
+//														Entre estos dos desplazamientos y uno mas adelante se logran los 27 pixeles totales
 				{
 					if (look == LEFT)
 						pos_x -= 9;
@@ -160,17 +163,17 @@ Worm::update()
 						pos_x += 9;
 					loadimg(walkCycle[0]);
 				}
-				else if (index < 27)
-				{
+				else if (index < 27)	// en el segundo ciclo de walkCycle, el indice se decrementa en 14 para conseguir un indice valido del arreglo
+				{	
 					index -= 14;
 					loadimg(walkCycle[index]);
 				}
-				else if (index < 41)
+				else if (index < 41)	// en el tercer ciclo, se decrementa en 28 para lograr el indice valido
 				{
 					index -= 28;
 					loadimg(walkCycle[index]);
 				}
-				else if (index == 41)
+				else if (index == 41)	// el ultimo frame. Se pasa al proximo estado correspondiente, se realiza el desplazamiento final y se resetea counter
 				{
 					if (state == WALKING)
 						state = START_WALKING;
@@ -193,7 +196,7 @@ Worm::update()
 
 		break;
 
-	case JUMPING: case STOP_JUMPING:
+	case JUMPING: case STOP_JUMPING:	// analogamente a la caminata, la diferencia radica en el estado al que se llega una vez finalizado el salto
 		deloadimg();
 		counter++;
 
@@ -203,15 +206,16 @@ Worm::update()
 				posx0 = pos_x;	//se guarda la posicion inicial en x para hacer el calculo de trayectoria
 			loadimg(WALK1);
 		}
-		else if (counter < 7)
+		else if (counter < 7)	// el manejo del indice es analogo al caso de la caminata
 		{
 			index = counter - 3;
 			loadimg(jumpCycle[index]);
 		}
-		else if (counter < 40)
+		else if (counter < 40)	// durante 33 frames, la imagen sera la misma y se calcula la trayectoria del worm
 		{
 			t = counter - 6; // establece la relacion entre t (tiempo teorico) y el numero de frame
 
+			// a continuacion estan los calculos del desplazamiento horizontal en el tiempo(frames) segun el sentido de la mirada
 			if (look == RIGHT)
 			{
 				pos_x = posx0 + 4.5*(1.0/2.0)*t;	// 1/2 = cos(60)
@@ -225,21 +229,22 @@ Worm::update()
 					pos_x = POS_MIN_X;
 			}
 
-			pos_y = (INICIAL_Y_POSITION_PLAYER_2) - (4.5)*(sin(M_PI / 3.0))*(t) + (1.0 / 2.0) * (0.24) * t * t;
+			pos_y = (INICIAL_Y_POSITION_PLAYER) - (4.5)*(sin(M_PI / 3.0))*(t) + (1.0 / 2.0) * GRAV * t * t;	// calculo de la altura segun el tiempo(frames)
 
 			loadimg(jumpCycle[4]);
 		}
-		else if (counter < 49)
+		else if (counter < 49)	// los frames posteriores a la caida muestran la amortiguacion del impacto
 		{
 			index = counter - 35;
 			loadimg(jumpCycle[index]);
 		}
-		else if (counter == 50)
+		else if (counter == 50)	// en el ultimo frame se pasa al siguiente estado correspondiente, se resetea counter y se ajusta la posicion en el eje y
 		{
 			if (state == STOP_JUMPING)
 				state = IDLE;
 			counter = 0;
 			loadimg(jumpCycle[4]);
+			pos_y = INICIAL_Y_POSITION_PLAYER; // la ecuacion del tiro oblicuo no resulta exactamente en el piso luego de 33 frames, se corrige ese delta	
 		}
 		break;
 	}

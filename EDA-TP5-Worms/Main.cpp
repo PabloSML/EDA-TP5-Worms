@@ -1,3 +1,16 @@
+/*
+	Grupo 3:
+	-Gonzalo Agustin Pintos
+	-Sebastian Nahuel Rossi
+	-Pablo Smolkin
+
+			Worms Armageddon 5: The Armageddoning
+
+
+*/
+
+
+
 #include "allegroAux.h"
 #include "Scene.h"
 #include "Worm.h"
@@ -18,8 +31,8 @@ int main()
 	{
 		AllegroEvents ev(event_queue); //Creo un objeto para eventos de Allegro
 		Scene background;
-		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_X_POSITION_PLAYER_1, INICIAL_Y_POSITION_PLAYER_2, RIGHT, WORM1_NAME),
-										 Worm(INICIAL_X_POSITION_PLAYER_2, INICIAL_Y_POSITION_PLAYER_2, LEFT, WORM2_NAME),
+		Worm player[CANT_OF_PLAYERS] = { Worm(INICIAL_X_POSITION_PLAYER_1, INICIAL_Y_POSITION_PLAYER, RIGHT, WORM1_NAME),
+										 Worm(INICIAL_X_POSITION_PLAYER_2, INICIAL_Y_POSITION_PLAYER, LEFT, WORM2_NAME),
 									   }; //Reescribir con new en caso de querer elegir la cantidad de players en tiempo de ejecucion
 
 		Drawable* drawables[OBJECTS_DRAWABLES] = { &background, &player[ONE], &player[TWO] };

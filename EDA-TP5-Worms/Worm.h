@@ -17,7 +17,7 @@ using namespace std;
 #define OBJECTS_DRAWABLES (CANT_OF_PLAYERS+1)	//Cantidad de objetos dibujables = jugadores + escenario
 #define INICIAL_X_POSITION_PLAYER_1 (701.0)		
 #define INICIAL_X_POSITION_PLAYER_2 (1050.0)	
-#define INICIAL_Y_POSITION_PLAYER_2 (616.0)
+#define INICIAL_Y_POSITION_PLAYER (616.0)
 #define MOVE_THRESHOLD (5)	 //El timer da eventos cada 20 ms. Si se multiplica por 5 seran 100ms (el umbral elegido para el movimiento)
 #define MOVEMENT_UNIT  (27.0)			//El worm se mueve a razon de 27 pixeles 
 #define POS_X_RATIO_AJUST (0.7114583)	//Ajuste de resolucion eje x (ver tabla en allegroAux.h para verificar)
@@ -30,7 +30,7 @@ using namespace std;
 #define RATIO_WORM_AJUST (0.08)			//Porcentaje de reduccion de las imagenes originales (eleccion propia)
 #define ERROR_BORDER_HIGH_RATIO (ERROR_BORDER_IMAGE_HIGH / TOTALS_IMAGE_PIXELS)		//Porcentaje del borde sobre la imagen (en este caso 0.5) 	
 #define ERROR_BORDER_WIDTH_RATIO (ERROR_BORDER_IMAGE_WIDTH / TOTALS_IMAGE_PIXELS)	//Porcentaje del borde sobre la imagen (en este caso 0.5)
-#define GRAV = (0.24)		//Constante de gravedad
+#define GRAV (0.24)		//Constante de gravedad
 #define WORM_IMAGE "wwalk-F4.png"
 
 	//************ IMAGENES DE WALK **********************
@@ -89,7 +89,7 @@ public:
 	/*
 	Funcion prncipal que se encarga de la animacion de la caminata y del salto de 
 	los dos worms. Segun el estado del worm (walking, jumping idle, etc) y la cantidad
-	de phrames que hayan pasado, la funcion determina la imagen del gusano que se debe
+	de frames que hayan pasado, la funcion determina la imagen del gusano que se debe
 	mostrar en pantalla y su ubicacion
 	*/
 
