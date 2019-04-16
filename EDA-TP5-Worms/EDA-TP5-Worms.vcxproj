@@ -178,6 +178,7 @@
   <ItemGroup>
     <ClCompile Include="allegroAux.cpp" />
     <ClCompile Include="AllegroEvents.cpp" />
+    <ClCompile Include="Dispatcher.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="eventGenerator.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -187,6 +188,7 @@
   <ItemGroup>
     <ClInclude Include="allegroAux.h" />
     <ClInclude Include="AllegroEvents.h" />
+    <ClInclude Include="Dispatcher.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="eventGenerator.h" />
     <ClInclude Include="Scene.h" />
