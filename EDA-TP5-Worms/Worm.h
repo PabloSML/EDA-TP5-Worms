@@ -46,24 +46,49 @@ public:
 	int getYCord(void) { return pos_y; };
 
 	virtual void draw(float w_dis, float h_dis);
+	/*
+	dibuja la imagen del gusano en la direccion correcta
+	*/
 
 	void update();
+	/*
+	Funcion prncipal que se encarga de la animacion de la caminata y del salto de 
+	los dos worms. Segun el estado del worm (walking, jumping idle, etc) y la cantidad
+	de phrames que hayan pasado, la funcion determina la imagen del gusano que se debe
+	mostrar en pantalla y su ubicacion
+	*/
 
 	void startWalking(char key);
+	/*
+	chequea si el usuario aprieta una de las teclas para hacer caminarn a alguno de
+	los gusanos y si es asi modifica el wormState a "startwalking"
+	*/ 
 	void stopWalking(char key);
+	/*
+	se fija si tiene que hacer que los gusanos dejen de caminar y si es asi 
+	modifica el wormState a "stopwalking"
+	*/ 
 
 	void startJumping(char key);
+	/*
+	chequea si el usuario aprieta una de las teclas para hacer saltar a alguno de 
+	los gusanos y si es asi modifica el wormState a "startjumping"
+	*/ 
 	void stopJumping(char key);
+	/*
+	se fija si tiene que hacer que los gusanos dejen de saltar y si es asi 
+	modifica el wormState a "stopwalking"
+	*/ 
 
 private:
 	const char* name;
-	float pos_x;
-	float pos_y;
-	direction look;
-	wormState state;
+	float pos_x;				//posicion en eje x
+	float pos_y;				//posicion en eje y
+	direction look;				//orientacion del gusano
+	wormState state;			//estado del gusano (caminando,saltando,sin hacer nada)
 	int counter;
-	const char* walkCycle[13];
-	const char* jumpCycle[14];
+	const char* walkCycle[13];	//contiene las distintas imagenes de la caminata
+	const char* jumpCycle[14];	//contiene las distintas imagenes del salto
 	float posx0;
 };
 

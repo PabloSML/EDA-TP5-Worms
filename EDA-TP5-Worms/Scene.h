@@ -9,6 +9,9 @@ public:
 	Scene(){}
 
 	void draw(float w_dis, float h_dis);
+	/*
+	dibuja el fondo del juego con la imagen preestablecida
+	*/
 };
 
 #endif
