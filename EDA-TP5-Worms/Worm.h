@@ -15,10 +15,10 @@
 #define INICIAL_Y_POSITION_PLAYER_2 (616.0)
 #define MOVE_THRESHOLD (5) //El timer da eventos cada 20 ms. Si se multiplica por 5 seran 100ms (el umbral elegido para el movimiento)
 #define MOVEMENT_UNIT  (27.0)			//El worm se mueve a razon de 27 pixeles 
-#define POS_X_RATIO_AJUST (1.0)	//Ajuste de resolucion eje x
-#define POS_Y_RATIO_AJUST (1.0)	//Ajuste de resolucion eje y
-//#define POS_X_RATIO_AJUST (0.7114583)	//Ajuste de resolucion eje x
-//#define POS_Y_RATIO_AJUST (1.1034483)	//Ajuste de resolucion eje y
+//#define POS_X_RATIO_AJUST (1.0)	//Ajuste de resolucion eje x
+//#define POS_Y_RATIO_AJUST (1.0)	//Ajuste de resolucion eje y
+#define POS_X_RATIO_AJUST (0.7114583)	//Ajuste de resolucion eje x
+#define POS_Y_RATIO_AJUST (1.1034483)	//Ajuste de resolucion eje y
 #define POS_MIN_X (630.0)
 #define POS_MAX_X (1130.0)
 #define ERROR_BORDER_IMAGE_HIGH (42.0)	//La imagen tiene que "correrse" 42.0 para que el worm sea dibujado correctamente
