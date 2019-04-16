@@ -12,8 +12,8 @@ class Drawable
 public:
 	Drawable(){}
 
-	bool init(const char* fileName);
-	void deinit();
+	bool loadimg(const char* fileName);
+	void deloadimg();
 	virtual void draw(float,float) = 0; // la funcion de draw debe ser redefinida por cada drawable distinto
 
 protected:

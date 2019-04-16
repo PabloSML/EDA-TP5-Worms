@@ -182,7 +182,6 @@
     <ClCompile Include="eventGenerator.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SimulationEvents.cpp" />
     <ClCompile Include="Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,7 +190,6 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="eventGenerator.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SimulationEvents.h" />
     <ClInclude Include="Worm.h" />
   </ItemGroup>
   <ItemGroup>

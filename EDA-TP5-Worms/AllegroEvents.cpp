@@ -18,43 +18,64 @@ AllegroEvents::getEvent(void)
 	{										//si se presiona la tecla ESC
 		switch (ev.keyboard.keycode)
 		{
-			case ALLEGRO_KEY_A: case ALLEGRO_KEY_LEFT: case ALLEGRO_KEY_D:
-			case ALLEGRO_KEY_RIGHT: case ALLEGRO_KEY_W: case ALLEGRO_KEY_UP:
-				event = USER_PRESS_IMPORTANCE_KEY;
-				break;
-			case ALLEGRO_KEY_ESCAPE:
+		case ALLEGRO_KEY_A:
+			key = 'a';
+			event = USER_WANTS_TO_WALK;
+			break;
+		case ALLEGRO_KEY_LEFT:
+			key = '<';
+			event = USER_WANTS_TO_WALK;
+			break;
+		case ALLEGRO_KEY_D:
+			key = 'd';
+			event = USER_WANTS_TO_WALK;
+			break;
+		case ALLEGRO_KEY_RIGHT:
+			key = '>';
+			event = USER_WANTS_TO_WALK;
+			break;
+		case ALLEGRO_KEY_W:
+			key = 'w';
+			event = USER_WANTS_TO_JUMP;
+			break;
+		case ALLEGRO_KEY_UP:
+			key = '^';
+			event = USER_WANTS_TO_JUMP;
+			break;
+			case ALLEGRO_KEY_ESCAPE: case ALLEGRO_KEY_Q:
 				quit = true;
 				event = QUIT;
 				break;
 		}
 	}
+
 	else if (ev.type == ALLEGRO_EVENT_KEY_UP)  //Este evento avisa cuando la tecla se dejo de presionar, para determinar
 	{										  //el moviemnto o solo el cambio de mirada
 		switch (ev.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_A:
 			key = 'a';
-			event = PLAYER_1_WANTS_TO_WALK;
+			event = USER_WANTS_TO_NOTWALK;
 			break;
 		case ALLEGRO_KEY_LEFT:
 			key = '<';
-			event = PLAYER_2_WANTS_TO_WALK;
+			event = USER_WANTS_TO_NOTWALK;
 			break;
 		case ALLEGRO_KEY_D:
 			key = 'd';
-			event = PLAYER_1_WANTS_TO_WALK;
+			event = USER_WANTS_TO_NOTWALK;
 			break;
 		case ALLEGRO_KEY_RIGHT:
 			key = '>';
-			event = PLAYER_2_WANTS_TO_WALK;
+			event = USER_WANTS_TO_NOTWALK;
 			break;
 		case ALLEGRO_KEY_W:
 			key = 'w';
-			event = PLAYER_1_WANTS_TO_JUMP;
+			event = USER_WANTS_TO_NOTJUMP;
 			break;
 		case ALLEGRO_KEY_UP:
 			key = '^';
-			event = PLAYER_2_WANTS_TO_JUMP;
+			event = USER_WANTS_TO_NOTJUMP;
 			break;
 		}
 	}
@@ -65,9 +86,6 @@ AllegroEvents::getEvent(void)
 	}
 	else if (ev.type == ALLEGRO_EVENT_TIMER)	//Evento para redibujar la pantalla
 		event = REFRESH;
-
-	//if (event != REFRESH)
-	//	cout << "evento :" << event << endl;	//Solo para debugging, borrar antes de entregar
 
 	return event;
 }

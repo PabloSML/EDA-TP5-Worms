@@ -1,7 +1,7 @@
 #include "Drawable.h"
 
 bool
-Drawable::init(const char* fileName)
+Drawable::loadimg(const char* fileName)
 {
 	bool success = true;
 	image = al_load_bitmap(fileName);
@@ -14,9 +14,10 @@ Drawable::init(const char* fileName)
 }
 
 void
-Drawable::deinit()
+Drawable::deloadimg()
 {
 	al_destroy_bitmap(image);
+	image = NULL;
 }
 
 void
