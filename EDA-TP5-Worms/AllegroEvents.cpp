@@ -3,8 +3,8 @@
 
 AllegroEvents::AllegroEvents(ALLEGRO_EVENT_QUEUE* event_queue_)
 {
-	quit = false;
-	event_queue = event_queue_;
+	quit = false;	
+	event_queue = event_queue_;	//registro la fila de eventos
 }
 
 eventype
@@ -14,7 +14,7 @@ AllegroEvents::getEvent(void)
 	al_get_next_event(event_queue, &ev);
 	eventype event = NO_EVENT;
 
-	if (ev.type == ALLEGRO_EVENT_KEY_DOWN)  //Con este evento empieza nuevamente el timer o se cierra la ventana
+	if (ev.type == ALLEGRO_EVENT_KEY_DOWN)  //Con este evento se guarda la primera tecla que presiono el usuario o se cierra la ventana
 	{										//si se presiona la tecla ESC
 		switch (ev.keyboard.keycode)
 		{
@@ -109,8 +109,3 @@ AllegroEvents::notQuit()
 
 }
 
-void
-AllegroEvents::setEvent(eventype)
-{
-	//Funcion sin utilizar
-}
